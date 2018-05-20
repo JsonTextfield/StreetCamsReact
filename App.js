@@ -11,20 +11,16 @@ export default class App extends React.Component {
 	}
     
     render() {
-        
-        
         return (
             <View style={styles.container}>
+				<TextInput/>
                 <SectionList
                     stickySectionHeadersEnabled={true}
                     keyExtractor={(item, index) => index}
-                    renderSectionHeader={({section}) =><Text style={{backgroundColor: "#cc3478"}}>{section.title}</Text>}
+                    renderSectionHeader={({section}) =><Text style={{backgroundColor: "#abcdef"}}>{section.title}</Text>}
                     sections={this.state.sections}
                     renderItem={({item}) =>
-                        <View style={styles.listItems}>
-                            <Text>{item.description}</Text>
-                            <Text>{item.descriptionFr}</Text>
-                        </View>
+                        <ListItem value={item}/>
                     }
                 />
             </View>
@@ -52,7 +48,6 @@ export default class App extends React.Component {
                     x.title = key;
                     sectionData.push(x);
                 }
-                
                 this.setState({
                   sections: sectionData
                 });
@@ -62,7 +57,21 @@ export default class App extends React.Component {
             });
     }
 }
-
+	class ListItem extends React.Component{
+		constructor(props){
+			super(props);
+		}
+		didClick(){
+			console.log('http://traffic.ottawa.ca/map/camera?id='+this.props.value.description);
+		}
+		render() {
+			return (
+				<View>
+					<Text onPress={this.didClick}>{this.props.value.description}</Text>
+				</View>
+			);
+		}
+	}
 const styles = StyleSheet.create({
   container: {
     paddingTop: 25,
